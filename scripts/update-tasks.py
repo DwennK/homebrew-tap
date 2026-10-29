@@ -39,7 +39,8 @@ path.write_text(f'''cask "tasks" do
   homepage "https://github.com/{repo}"
 
   auto_updates true
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
+
   app "Tasks.app"
 end
 ''')

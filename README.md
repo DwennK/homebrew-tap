@@ -30,6 +30,8 @@ A local-first macOS task manager with notes, reminders, CLI and MCP.
 brew install --cask dwennk/tap/tasks
 ```
 
+If Homebrew asks for trust, review the [Tasks cask](https://github.com/DwennK/homebrew-tap/blob/main/Casks/tasks.rb), run `brew trust --cask dwennk/tap/tasks`, then retry the install. This grants trust only to this cask.
+
 Supports macOS 12+ on Apple Silicon and Intel. Downloads the universal app from [DwennK/Tasks releases](https://github.com/DwennK/Tasks/releases). The app can update itself; an explicit Homebrew update is also available:
 
 ```sh
