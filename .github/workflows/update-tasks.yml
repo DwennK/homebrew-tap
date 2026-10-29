@@ -1,0 +1,27 @@
+name: Update Tasks cask
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 5 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: update-tasks-cask
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - run: python3 scripts/update-tasks.py
+      - run: ruby -c Casks/tasks.rb
+      - name: Commit Tasks version if changed
+        run: |
+          if git diff --quiet -- Casks/tasks.rb; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Casks/tasks.rb
+          git diff --cached --check
+          git commit -m 'Update Tasks cask' -m 'Track the latest Tasks release and verify the downloaded DMG checksum.'
+          git push
